@@ -14,7 +14,8 @@ def oval(a, b, x0, y0, c = 100):
         alpha = alpha_c / c * 2 * math.pi
         mass.append((x0 + a * math.cos(alpha), y0 + b * math.sin(alpha)))
 
-    polygon(mass)
+    polyg = polygon(mass)
+    return polyg
 
 def sun():
     global allSun
@@ -81,7 +82,8 @@ def colorStuff(color, stuff, *argv):
         brushColor(color[0], color[1], color[2])
         penColor(color[0], color[1], color[2])
 
-    stuff(*argv)
+    obj = stuff(*argv)
+    return obj
 
 def tree(trunk, crown, apple):
     global allTree
@@ -369,8 +371,10 @@ def dayNight():
         mane = [(49, 0, 98), (192, 5, 218), (182, 39, 246), (172, 73, 245), (191, 5, 247), (149, 33, 246), (143, 0, 255), (205, 1, 203), (152, 18, 150), (226, 94, 240), (99, 0, 155)]
         tail = [(49, 0, 98), (192, 5, 218), (182, 39, 246), (172, 73, 245), (191, 5, 247), (149, 33, 246), (205, 1, 203), (99, 0, 155), (152, 18, 150), (143, 0, 255), (226, 94, 240)]
         axis = generateCoord(10, 17, 9, 10, 8)
-        deleteManyObjects(allUnicorn)
-        unicorn('white', (184, 134, 11), 'white', (184, 134, 11), mane, tail, axis)
+        for unic in allUnicorn:
+            canvas().tag_raise(unic)
+#        deleteManyObjects(allUnicorn)
+#        unicorn('white', (184, 134, 11), 'white', (184, 134, 11), mane, tail, axis)
     else:
         changeProperty(sky, fill = 'deep sky blue')
         changeProperty(ground, fill = 'DarkOliveGreen1')
@@ -378,7 +382,32 @@ def dayNight():
         tree((128, 64, 28), 'forest green', (217, 0, 40))
         deleteManyObjects(massOfStars)
         sun()
+        for unic in allUnicorn:
+            canvas().tag_raise(unic)
     flag = not flag
+
+
+jump_height = 25
+
+jump_dy = 0
+up_jump = True
+def jump():
+    global jump_dy, up_jump
+    rand_x = int(random.random()*6)-3
+    if up_jump:
+        for i in allUnicorn:
+            moveObjectBy(i, rand_x, 1)
+        jump_dy += 1
+    else:
+        for i in allUnicorn:
+            moveObjectBy(i, rand_x, -1)
+        jump_dy -= 1
+    if jump_dy <= 0:
+        up_jump = True
+    elif jump_dy >= jump_height:
+        up_jump = False
+        
+
 
 penColor(136, 236, 255)
 brushColor(136, 236, 255)
@@ -402,5 +431,6 @@ unicorn('white', (184, 134, 11), 'white', (184, 134, 11), mane, tail, axis)
 
 onTimer(dayNight, 1000)
 
+onTimer(jump, 5)
 
 run()
