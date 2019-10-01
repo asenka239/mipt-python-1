@@ -1,13 +1,9 @@
 from graph import *
 import math
-import random 
-
-windowSize(600, 800)
-canvasSize(600, 800)
+import random
 
 
-
-def oval(a, b, x0, y0, c = 100):
+def oval(a, b, x0, y0, c=100):
     mass = list()
 
     for alpha_c in range(0, c):
@@ -16,17 +12,17 @@ def oval(a, b, x0, y0, c = 100):
 
     polygon(mass)
 
+
 def sun():
     global allSun
     brushColor(254, 254, 34)
     penColor(254, 254, 34)
-    sunCir = circle(570, 30, 60) #sun
+    sunCir = circle(570, 30, 60)  # sun
 
-    #rays of sunshine
-
-    penColor(254, 254, 34) 
+    # rays of sunshine
+    penColor(254, 254, 34)
     brushColor(254, 254, 34)
-    sunSh1 = polygon([(535,  7), (540, 37), (465, 25)]) 
+    sunSh1 = polygon([(535,  7), (540, 37), (465, 25)])
     sunSh2 = polygon([(565, 10), (585, 60), (490, 100)])
     sunSh3 = polygon([(565, 80), (587, 85), (575, 130)])
 
@@ -35,6 +31,7 @@ def sun():
     allSun.append(sunSh1)
     allSun.append(sunSh2)
     allSun.append(sunSh3)
+
 
 def generateCoord(count, weight, height, x0, y0):
     coord = list()
@@ -45,53 +42,50 @@ def generateCoord(count, weight, height, x0, y0):
         coord.append((x, y, r))
     return coord
 
+
 def creatStars(coord, ang):
     global massOfStars
     massOfStars = list()
     for j in range(len(coord)):
         st = list()
         for i in range(5):
-            x_i = coord[j][0] + coord[j][2] * math.cos(ang - math.pi * i * 2 / 5)
-            y_i = coord[j][1] + coord[j][2] * math.sin(ang - math.pi * i * 2 / 5)
+            par1 = math.pi * i * 2 / 5
+            x_i = coord[j][0] + coord[j][2] * math.cos(ang - par1)
+            y_i = coord[j][1] + coord[j][2] * math.sin(ang - par1)
             st.append((x_i, y_i))
-            x_i = coord[j][0] + coord[j][2] * math.cos(ang - math.pi * (i + 0.5) * 2 / 5) * math.cos(math.pi * 2 / 5) / math.cos(math.pi / 5)
-            y_i = coord[j][1] + coord[j][2] * math.sin(ang - math.pi * (i + 0.5) * 2 / 5) * math.cos(math.pi * 2 / 5) / math.cos(math.pi / 5)
+            par2 = ang - math.pi * (i + 0.5) * 2 / 5
+            par3 = math.cos(math.pi * 2 / 5) / math.cos(math.pi / 5)
+            x_i = coord[j][0] + coord[j][2] * math.cos(par2) * par3
+            y_i = coord[j][1] + coord[j][2] * math.sin(par2) * par3
             st.append((x_i, y_i))
         oneStar = polygon(st)
         massOfStars.append(oneStar)
+
 
 def deleteManyObjects(objects):
     for i in range(len(objects)):
         deleteObject(objects[i])
 
 
-
-    
-
-
-
-
-
-
 def colorStuff(color, stuff, *argv):
-    if type(color) == type('string'):
+    if isinstance(color, str):
         brushColor(color)
         penColor(color)
     else:
         brushColor(color[0], color[1], color[2])
         penColor(color[0], color[1], color[2])
-
     stuff(*argv)
+
 
 def tree(trunk, crown, apple):
     global allTree
     allTree = list()
     brushColor(trunk)
     penColor(trunk)
-    th = rectangle(50+45, 300, 75+55, 550) #tree trunk(ствол)
+    th = rectangle(50+45, 300, 75+55, 550)  # tree trunk(ствол)
     allTree.append(th)
 
-    #from here --- tree crown
+    # from here --- tree crown
 
     cr = colorStuff(crown, circle, 70+50, 200, 70)
     allTree.append(cr)
@@ -110,16 +104,18 @@ def tree(trunk, crown, apple):
     cr = colorStuff(crown, circle, 170+50, 300, 70)
     allTree.append(cr)
 
-    #apples
+    # apples
 
-    penColor(apple) 
+    penColor(apple)
     brushColor(apple)
 
     for i in range(6):
-        if(i != 0):
-            ap = circle(170 + 17 * i * (-1) ** (i), 200 + 27 * i , 15 + 2 * (-1) ** (i))
+        if i != 0:
+            x = 170 + 17 * i * (-1) ** (i)
+            y = 200 + 27 * i
+            r = 15 + 2 * (-1) ** (i)
+            ap = circle(x, y, r)
             allTree.append(ap)
-
 
     ap = circle(75+50, 160, 13)
     allTree.append(ap)
@@ -135,116 +131,117 @@ def tree(trunk, crown, apple):
     allTree.append(ap)
 
 
-
-def unicorn(leg, hoof, body, horn, tail, mane, axis): 
-    """In tail >= 5 elements, in mane >= 5 elements, body is the colour if body, neck and head. 
+def unicorn(leg, hoof, body, horn, tail, mane, axis):
+    """In tail >= 5 elements, in mane >= 5 elements,
+    body is the colour if body, neck and head.
     Eye color is const.
     axis"""
 
     global allUnicorn
     allUnicorn = list()
 
-
-
+    # from left to right --- 1 unicorn leg
     leg1 = colorStuff(leg, rectangle, 300, 500, 315, 600)
-    hoof1 = colorStuff(hoof, rectangle, 300, 600, 315, 593) #from left to right --- 1 unicorn leg
+    hoof1 = colorStuff(hoof, rectangle, 300, 600, 315, 593)
 
+    # from left to right --- 2 unicorn leg
     leg2 = colorStuff(leg, rectangle, 330, 490, 342, 585)
-    hoof2 = colorStuff(hoof, rectangle, 330, 580, 342, 587)  #from left to right --- 2 unicorn leg
+    hoof2 = colorStuff(hoof, rectangle, 330, 580, 342, 587)
 
+    # from left to right --- 3 unicorn leg
     leg3 = colorStuff(leg, rectangle, 380, 507, 395, 607)
-    hoof3 = colorStuff(hoof, rectangle, 380, 602, 395, 609)  #from left to right --- 3 unicorn leg
+    hoof3 = colorStuff(hoof, rectangle, 380, 602, 395, 609)
 
+    # from left to right --- 4 unicorn leg
     leg4 = colorStuff(leg, rectangle, 430, 470, 442, 583)
-    hoof4 = colorStuff(hoof, rectangle, 430, 578, 442, 585) #from left to right --- 4 unicorn leg
+    hoof4 = colorStuff(hoof, rectangle, 430, 578, 442, 585)
 
+    body1 = colorStuff(body, oval, 100, 50, 370, 480)  # unicorn body
 
+    neck = colorStuff(body, oval, 30, 70, 450, 430)  # unicorn neck
 
-    body1 = colorStuff(body, oval, 100, 50, 370, 480) #unicorn body
-
-    neck = colorStuff(body, oval, 30, 70, 450, 430) #unicorn neck
-
-    #horn
+    # horn
 
     horn1 = colorStuff(horn, polygon, [(450, 370), (470, 370), (485, 300)])
+    head1 = colorStuff(body, circle, 450, 370, 30)  # unicorn head
+    head2 = oval(40, 20, 480, 370)
 
-
-    head1 = colorStuff(body, circle, 450, 370, 30) #unicorn head
-    head2 = oval(40, 20, 480, 370) 
-
-    
-
-    #eye
+    # eye
 
     whitePartOfEye = colorStuff((255, 227, 217), oval, 9, 7, 460, 363)
     blackPartOfEye = colorStuff('black', circle, 465, 365, 2)
 
-    allUnicorn.extend((leg1, hoof1, leg2, hoof2, leg3, hoof3, leg4, hoof4, body1, neck, horn1, head1, head2, whitePartOfEye, blackPartOfEye))
+    allUnicorn.extend((leg1, hoof1, leg2, hoof2, leg3, hoof3, leg4, hoof4))
+    allUnicorn.extend((body1, neck, horn1, head1, head2))
+    allUnicorn.extend((whitePartOfEye, blackPartOfEye))
 
-
-    #unicorn mane
+    # unicorn mane
     random.shuffle(mane)
     random.shuffle(axis)
     x = 430
     y = 350
     par_x = 6
     par_y = 17
-    penColor(mane[4]) 
+    penColor(mane[4])
     brushColor(mane[4])
 
     for i in range(5):
-        fig = oval(axis[4][0], axis[4][1], x - par_x * i * (-1) ** (i), y + par_y * i)
+        x_i = x - par_x * i * (-1) ** (i)
+        y_i = y + par_y * i
+        fig = oval(axis[4][0], axis[4][1], x_i, y_i)
         allUnicorn.append(fig)
 
-    penColor(mane[0]) 
+    penColor(mane[0])
     brushColor(mane[0])
 
     y += 20
     x -= 15
 
     for i in range(5):
-        fig = oval(axis[0][0], axis[0][1], x - par_x * i * (-1) ** (i), y + par_y * i)
+        x_i = x - par_x * i * (-1) ** (i)
+        y_i = y + par_y * i
+        fig = oval(axis[0][0], axis[0][1], x_i, y_i)
         allUnicorn.append(fig)
 
-    penColor(mane[1]) 
+    penColor(mane[1])
     brushColor(mane[1])
-
 
     x -= 15
     y += 20
 
     for i in range(4):
-        fig = oval(axis[1][0], axis[1][1], x - par_x * i * (-1) ** (i), y + par_y * i)
+        x_i = x - par_x * i * (-1) ** (i)
+        y_i = y + par_y * i
+        fig = oval(axis[1][0], axis[1][1], x_i, y_i)
         allUnicorn.append(fig)
 
-        
-
-    penColor(mane[2]) 
+    penColor(mane[2])
     brushColor(mane[2])
-
 
     y -= 15
     x += 35
     par_y -= 3
 
     for i in range(5):
-        fig = oval(axis[2][0], axis[2][1], x - par_x * i * (-1) ** (i), y + par_y * i)
+        x_i = x - par_x * i * (-1) ** (i)
+        y_i = y + par_y * i
+        fig = oval(axis[2][0], axis[2][1], x_i, y_i)
         allUnicorn.append(fig)
 
-
-
-    penColor(mane[3]) #mane[3]
-    brushColor(mane[3]) 
+    penColor(mane[3])  # mane[3]
+    brushColor(mane[3])
 
     y -= 20
     x -= 25
     par_x -= 3
 
     for i in range(7):
-        fig = oval(axis[3][0], axis[3][1], x - par_x * i * (-1) ** (i), y + par_y * i)
+        x_i = x - par_x * i * (-1) ** (i)
+        y_i = y + par_y * i
+        fig = oval(axis[3][0], axis[3][1], x_i, y_i)
         allUnicorn.append(fig)
 
-    penColor(mane[5]) #mane[5]
+    penColor(mane[5])  # mane[5]
     brushColor(mane[5])
 
     y += 20
@@ -253,64 +250,65 @@ def unicorn(leg, hoof, body, horn, tail, mane, axis):
     par_x -= 2
 
     for i in range(7):
-        fig = oval(axis[5][0], axis[5][1], x - par_x * i * (-1) ** (i), y + par_y * i)
+        x_i = x - par_x * i * (-1) ** (i)
+        y_i = y + par_y * i
+        fig = oval(axis[5][0], axis[5][1], x_i, y_i)
         allUnicorn.append(fig)
 
-
-
-
-    #unicorn tail
+    # unicorn tail
     random.shuffle(tail)
     random.shuffle(axis)
     x = 280
     y = 450
     par_x = 6
     par_y = 17
-    penColor(tail[0]) 
+    penColor(tail[0])
     brushColor(tail[0])
 
     for i in range(7):
-        fig = oval(axis[0][0], axis[0][1], x - par_x * i * (-1) ** (i), y + par_y * i)
+        x_i = x - par_x * i * (-1) ** (i)
+        y_i = y + par_y * i
+        fig = oval(axis[0][0], axis[0][1], x_i, y_i)
         allUnicorn.append(fig)
 
-    penColor(tail[1]) 
+    penColor(tail[1])
     brushColor(tail[1])
 
     y += 20
     x -= 15
 
     for i in range(7):
-        fig = oval(axis[1][0], axis[1][1], x - par_x * i * (-1) ** (i), y + par_y * i)
+        x_i = x - par_x * i * (-1) ** (i)
+        y_i = y + par_y * i
+        fig = oval(axis[1][0], axis[1][1], x_i, y_i)
         allUnicorn.append(fig)
 
-    penColor(tail[2]) 
+    penColor(tail[2])
     brushColor(tail[2])
-
 
     x -= 15
     y += 20
 
     for i in range(6):
-        fig = oval(axis[2][0], axis[2][1], x - par_x * i * (-1) ** (i), y + par_y * i)
+        x_i = x - par_x * i * (-1) ** (i)
+        y_i = y + par_y * i
+        fig = oval(axis[2][0], axis[2][1], x_i, y_i)
         allUnicorn.append(fig)
 
-        
-
-    penColor(tail[3]) 
+    penColor(tail[3])
     brushColor(tail[3])
-
 
     y -= 15
     x += 35
     par_y -= 3
 
     for i in range(7):
-        fig = oval(axis[3][0], axis[3][1], x - par_x * i * (-1) ** (i), y + par_y * i)
+        x_i = x - par_x * i * (-1) ** (i)
+        y_i = y + par_y * i
+        fig = oval(axis[3][0], axis[3][1], x_i, y_i)
         allUnicorn.append(fig)
 
-
-
-    penColor(tail[4]) #tail[4]
+    penColor(tail[4])  # tail[4]
     brushColor(tail[4])
 
     y -= 20
@@ -318,10 +316,12 @@ def unicorn(leg, hoof, body, horn, tail, mane, axis):
     par_x -= 3
 
     for i in range(10):
-        fig = oval(axis[4][0], axis[4][1], x - par_x * i * (-1) ** (i), y + par_y * i)
+        x_i = x - par_x * i * (-1) ** (i)
+        y_i = y + par_y * i
+        fig = oval(axis[4][0], axis[4][1], x_i, y_i)
         allUnicorn.append(fig)
 
-    penColor(tail[5]) #tail[5]
+    penColor(tail[5])  # tail[5]
     brushColor(tail[5])
 
     y += 37
@@ -330,35 +330,41 @@ def unicorn(leg, hoof, body, horn, tail, mane, axis):
     par_y -= 1
 
     for i in range(7):
-        fig = oval(axis[5][0], axis[5][1], x - par_x * i * (-1) ** (i), y + par_y * i)
+        x_i = x - par_x * i * (-1) ** (i)
+        y_i = y + par_y * i
+        fig = oval(axis[5][0], axis[5][1], x_i, y_i)
         allUnicorn.append(fig)
 
-    penColor(tail[6]) #tail[6]
+    penColor(tail[6])  # tail[6]
     brushColor(tail[6])
 
     y += 37
     x -= 40
 
     for i in range(5):
-        fig = oval(axis[6][0], axis[6][1], x + par_x * i, y + par_y * i * (-1) ** (i))
+        x_i = x - par_x * i * (-1) ** (i)
+        y_i = y + par_y * i
+        fig = oval(axis[6][0], axis[6][1], x_i, y_i)
         allUnicorn.append(fig)
 
     y -= 37
     x += 40
 
-    penColor(tail[5]) #tail[5]
+    penColor(tail[5])  # tail[5]
     brushColor(tail[5])
 
     for i in range(7):
-        fig = oval(axis[5][0], axis[5][1], x - par_x * i * (-1) ** (i), y + par_y * i)
+        x_i = x - par_x * i * (-1) ** (i)
+        y_i = y + par_y * i
+        fig = oval(axis[5][0], axis[5][1], x_i, y_i)
         allUnicorn.append(fig)
 
-flag = False
+
 def dayNight():
     global flag
     if flag:
-        changeProperty(sky, fill = 'blue4')
-        changeProperty(ground, fill = 'chartreuse4')
+        changeProperty(sky, fill='blue4')
+        changeProperty(ground, fill='chartreuse4')
         deleteManyObjects(allSun)
         penColor('yellow')
         brushColor('yellow')
@@ -366,28 +372,41 @@ def dayNight():
         creatStars(coord, 0)
         deleteManyObjects(allTree)
         tree((128, 64, 28), 'dark green', (217, 0, 40))
-        mane = [(49, 0, 98), (192, 5, 218), (182, 39, 246), (172, 73, 245), (191, 5, 247), (149, 33, 246), (143, 0, 255), (205, 1, 203), (152, 18, 150), (226, 94, 240), (99, 0, 155)]
-        tail = [(49, 0, 98), (192, 5, 218), (182, 39, 246), (172, 73, 245), (191, 5, 247), (149, 33, 246), (205, 1, 203), (99, 0, 155), (152, 18, 150), (143, 0, 255), (226, 94, 240)]
+        mane = [(49, 0, 98), (192, 5, 218), (182, 39, 246)]
+        mane.extend(((172, 73, 245), (191, 5, 247), (149, 33, 246)))
+        mane.extend(((143, 0, 255), (205, 1, 203), (152, 18, 150)))
+        mane.extend(((226, 94, 240), (99, 0, 155)))
+        tail = [(49, 0, 98), (192, 5, 218), (182, 39, 246)]
+        tail.extend(((172, 73, 245), (191, 5, 247), (149, 33, 246)))
+        tail.extend(((143, 0, 255), (205, 1, 203), (152, 18, 150)))
+        tail.extend(((226, 94, 240), (99, 0, 155)))
         axis = generateCoord(10, 17, 9, 10, 8)
         deleteManyObjects(allUnicorn)
-        unicorn('white', (184, 134, 11), 'white', (184, 134, 11), mane, tail, axis)
+        color = (184, 134, 11)
+        unicorn('white', color, 'white', color, mane, tail, axis)
     else:
-        changeProperty(sky, fill = 'deep sky blue')
-        changeProperty(ground, fill = 'DarkOliveGreen1')
+        changeProperty(sky, fill='deep sky blue')
+        changeProperty(ground, fill='DarkOliveGreen1')
         deleteManyObjects(allTree)
         tree((128, 64, 28), 'forest green', (217, 0, 40))
         deleteManyObjects(massOfStars)
         sun()
     flag = not flag
 
+
+windowSize(600, 800)
+canvasSize(600, 800)
+
+flag = False
+
 penColor(136, 236, 255)
 brushColor(136, 236, 255)
-sky = rectangle(0, 0, 600, 400) #sky
+sky = rectangle(0, 0, 600, 400)  # sky
 
 
 penColor(68, 255, 74)
 brushColor(68, 255, 74)
-ground = rectangle(0, 400, 600, 800) #ground
+ground = rectangle(0, 400, 600, 800)  # ground
 
 penColor('yellow')
 brushColor('yellow')
@@ -395,8 +414,14 @@ coord = generateCoord(50, 600, 350, 0, 0)
 creatStars(coord, 0)
 tree((128, 64, 28), 'dark green', (217, 0, 40))
 
-mane = [(49, 0, 98), (192, 5, 218), (182, 39, 246), (172, 73, 245), (191, 5, 247), (149, 33, 246), (143, 0, 255), (205, 1, 203), (152, 18, 150), (226, 94, 240), (99, 0, 155)]
-tail = [(49, 0, 98), (192, 5, 218), (182, 39, 246), (172, 73, 245), (191, 5, 247), (149, 33, 246), (205, 1, 203), (99, 0, 155), (152, 18, 150), (143, 0, 255), (226, 94, 240)]
+mane = [(49, 0, 98), (192, 5, 218), (182, 39, 246)]
+mane.extend(((172, 73, 245), (191, 5, 247), (149, 33, 246)))
+mane.extend(((143, 0, 255), (205, 1, 203), (152, 18, 150)))
+mane.extend(((226, 94, 240), (99, 0, 155)))
+tail = [(49, 0, 98), (192, 5, 218), (182, 39, 246)]
+tail.extend(((172, 73, 245), (191, 5, 247), (149, 33, 246)))
+tail.extend(((143, 0, 255), (205, 1, 203), (152, 18, 150)))
+tail.extend(((226, 94, 240), (99, 0, 155)))
 axis = generateCoord(10, 17, 9, 10, 8)
 unicorn('white', (184, 134, 11), 'white', (184, 134, 11), mane, tail, axis)
 
@@ -404,3 +429,4 @@ onTimer(dayNight, 1000)
 
 
 run()
+
