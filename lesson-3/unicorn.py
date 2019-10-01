@@ -2,6 +2,12 @@ from graph import *
 import math
 import random
 
+try:
+    import vlc
+    composition = vlc.MediaPlayer("secret.mp3")
+    composition.play()
+except:
+    pass
 
 def oval(a, b, x0, y0, c=100):
     mass = list()
@@ -516,5 +522,6 @@ onTimer(jump, 1)
 onTimer(wind, 30)
 
 onTimer(head_shake, 36)
+
 
 run()
