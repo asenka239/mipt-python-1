@@ -139,8 +139,10 @@ def unicorn(leg, hoof, body, horn, tail, mane, axis):
     Eye color is const.
     axis"""
 
-    global allUnicorn
+    global allUnicorn, tailArr, head_array
     allUnicorn = list()
+    tailArr = list()
+    head_array = list()
 
     # from left to right --- 1 unicorn leg
     leg1 = colorStuff(leg, rectangle, 300, 500, 315, 600)
@@ -167,7 +169,7 @@ def unicorn(leg, hoof, body, horn, tail, mane, axis):
     horn1 = colorStuff(horn, polygon, [(450, 370), (470, 370), (485, 300)])
     head1 = colorStuff(body, circle, 450, 370, 30)  # unicorn head
     head2 = oval(40, 20, 480, 370)
-
+    
     # eye
 
     whitePartOfEye = colorStuff((255, 227, 217), oval, 9, 7, 460, 363)
@@ -176,6 +178,8 @@ def unicorn(leg, hoof, body, horn, tail, mane, axis):
     allUnicorn.extend((leg1, hoof1, leg2, hoof2, leg3, hoof3, leg4, hoof4))
     allUnicorn.extend((body1, neck, horn1, head1, head2))
     allUnicorn.extend((whitePartOfEye, blackPartOfEye))
+    
+    head_array.extend((horn1, head1, head2, whitePartOfEye, blackPartOfEye))
 
     # unicorn mane
     random.shuffle(mane)
@@ -192,6 +196,7 @@ def unicorn(leg, hoof, body, horn, tail, mane, axis):
         y_i = y + par_y * i
         fig = oval(axis[4][0], axis[4][1], x_i, y_i)
         allUnicorn.append(fig)
+        head_array.append(fig)
 
     penColor(mane[0])
     brushColor(mane[0])
@@ -204,6 +209,7 @@ def unicorn(leg, hoof, body, horn, tail, mane, axis):
         y_i = y + par_y * i
         fig = oval(axis[0][0], axis[0][1], x_i, y_i)
         allUnicorn.append(fig)
+        head_array.append(fig)
 
     penColor(mane[1])
     brushColor(mane[1])
@@ -216,6 +222,7 @@ def unicorn(leg, hoof, body, horn, tail, mane, axis):
         y_i = y + par_y * i
         fig = oval(axis[1][0], axis[1][1], x_i, y_i)
         allUnicorn.append(fig)
+        head_array.append(fig)
 
     penColor(mane[2])
     brushColor(mane[2])
@@ -229,6 +236,7 @@ def unicorn(leg, hoof, body, horn, tail, mane, axis):
         y_i = y + par_y * i
         fig = oval(axis[2][0], axis[2][1], x_i, y_i)
         allUnicorn.append(fig)
+        head_array.append(fig)
 
     penColor(mane[3])  # mane[3]
     brushColor(mane[3])
@@ -242,6 +250,7 @@ def unicorn(leg, hoof, body, horn, tail, mane, axis):
         y_i = y + par_y * i
         fig = oval(axis[3][0], axis[3][1], x_i, y_i)
         allUnicorn.append(fig)
+        head_array.append(fig)
 
     penColor(mane[5])  # mane[5]
     brushColor(mane[5])
@@ -256,6 +265,7 @@ def unicorn(leg, hoof, body, horn, tail, mane, axis):
         y_i = y + par_y * i
         fig = oval(axis[5][0], axis[5][1], x_i, y_i)
         allUnicorn.append(fig)
+        head_array.append(fig)
 
     # unicorn tail
     random.shuffle(tail)
@@ -272,6 +282,7 @@ def unicorn(leg, hoof, body, horn, tail, mane, axis):
         y_i = y + par_y * i
         fig = oval(axis[0][0], axis[0][1], x_i, y_i)
         allUnicorn.append(fig)
+        tailArr.append(fig)
 
     penColor(tail[1])
     brushColor(tail[1])
@@ -284,6 +295,7 @@ def unicorn(leg, hoof, body, horn, tail, mane, axis):
         y_i = y + par_y * i
         fig = oval(axis[1][0], axis[1][1], x_i, y_i)
         allUnicorn.append(fig)
+        tail.append(fig)
 
     penColor(tail[2])
     brushColor(tail[2])
@@ -296,6 +308,7 @@ def unicorn(leg, hoof, body, horn, tail, mane, axis):
         y_i = y + par_y * i
         fig = oval(axis[2][0], axis[2][1], x_i, y_i)
         allUnicorn.append(fig)
+        tailArr.append(fig)
 
     penColor(tail[3])
     brushColor(tail[3])
@@ -309,6 +322,7 @@ def unicorn(leg, hoof, body, horn, tail, mane, axis):
         y_i = y + par_y * i
         fig = oval(axis[3][0], axis[3][1], x_i, y_i)
         allUnicorn.append(fig)
+        tailArr.append(fig)
 
     penColor(tail[4])  # tail[4]
     brushColor(tail[4])
@@ -322,6 +336,7 @@ def unicorn(leg, hoof, body, horn, tail, mane, axis):
         y_i = y + par_y * i
         fig = oval(axis[4][0], axis[4][1], x_i, y_i)
         allUnicorn.append(fig)
+        tailArr.append(fig)
 
     penColor(tail[5])  # tail[5]
     brushColor(tail[5])
@@ -336,6 +351,7 @@ def unicorn(leg, hoof, body, horn, tail, mane, axis):
         y_i = y + par_y * i
         fig = oval(axis[5][0], axis[5][1], x_i, y_i)
         allUnicorn.append(fig)
+        tailArr.append(fig)
 
     penColor(tail[6])  # tail[6]
     brushColor(tail[6])
@@ -348,6 +364,7 @@ def unicorn(leg, hoof, body, horn, tail, mane, axis):
         y_i = y + par_y * i
         fig = oval(axis[6][0], axis[6][1], x_i, y_i)
         allUnicorn.append(fig)
+        tailArr.append(fig)
 
     y -= 37
     x += 40
@@ -360,13 +377,14 @@ def unicorn(leg, hoof, body, horn, tail, mane, axis):
         y_i = y + par_y * i
         fig = oval(axis[5][0], axis[5][1], x_i, y_i)
         allUnicorn.append(fig)
+        tailArr.append(fig)
 
 
 def dayNight():
     global flag
     if flag:
-        changeProperty(sky, fill='blue4')
-        changeProperty(ground, fill='chartreuse4')
+        changeProperty(sky, fill='blue4', outline='blue4')
+        changeProperty(ground, fill='chartreuse4', outline='chartreuse4')
         deleteManyObjects(allSun)
         penColor('yellow')
         brushColor('yellow')
@@ -374,20 +392,20 @@ def dayNight():
         creatStars(coord, 0)
         deleteManyObjects(allTree)
         tree((128, 64, 28), 'dark green', (217, 0, 40))
-        mane = [(49, 0, 98), (192, 5, 218), (182, 39, 246)]
-        mane.extend(((172, 73, 245), (191, 5, 247), (149, 33, 246)))
-        mane.extend(((143, 0, 255), (205, 1, 203), (152, 18, 150)))
-        mane.extend(((226, 94, 240), (99, 0, 155)))
-        tail = [(49, 0, 98), (192, 5, 218), (182, 39, 246)]
-        tail.extend(((172, 73, 245), (191, 5, 247), (149, 33, 246)))
-        tail.extend(((143, 0, 255), (205, 1, 203), (152, 18, 150)))
-        tail.extend(((226, 94, 240), (99, 0, 155)))
+#       mane = [(49, 0, 98), (192, 5, 218), (182, 39, 246)]
+#       mane.extend(((172, 73, 245), (191, 5, 247), (149, 33, 246)))
+#       mane.extend(((143, 0, 255), (205, 1, 203), (152, 18, 150)))
+#       mane.extend(((226, 94, 240), (99, 0, 155)))
+#       tail = [(49, 0, 98), (192, 5, 218), (182, 39, 246)]
+#       tail.extend(((172, 73, 245), (191, 5, 247), (149, 33, 246)))
+#       tail.extend(((143, 0, 255), (205, 1, 203), (152, 18, 150)))
+#       tail.extend(((226, 94, 240), (99, 0, 155)))
         axis = generateCoord(10, 17, 9, 10, 8)
         for unic in allUnicorn:
             canvas().tag_raise(unic)
     else:
-        changeProperty(sky, fill='deep sky blue')
-        changeProperty(ground, fill='DarkOliveGreen1')
+        changeProperty(sky, fill='deep sky blue', outline='deep sky blue')
+        changeProperty(ground, fill='DarkOliveGreen1', outline='DarkOliveGreen1')
         deleteManyObjects(allTree)
         tree((128, 64, 28), 'forest green', (217, 0, 40))
         deleteManyObjects(massOfStars)
@@ -403,7 +421,7 @@ jump_dy = 0
 up_jump = True
 def jump():
     global jump_dy, up_jump
-    rand_x = int(random.random()*6)-3
+    rand_x = 0#int(random.random()*6)-3
     if up_jump:
         for i in allUnicorn:
             moveObjectBy(i, rand_x, 1)
@@ -416,7 +434,49 @@ def jump():
         up_jump = True
     elif jump_dy >= jump_height:
         up_jump = False
+       
+dx = 0
+maxim_x = int(random.random()*7)
+right_tail = True
+def wind():
+    global dx, maxim_x, right_tail
+    if right_tail: 
+        for i in tailArr:
+            moveObjectBy(i, 1, 0)
+        dx += 1    
+    else:
+        for i in tailArr:
+            moveObjectBy(i, -1, 0)
+        dx -= 1
+    if right_tail and dx >= maxim_x:
+        right_tail = False
+        maxim_x = int(random.random()*7)
+    elif (not right_tail) and dx <= -maxim_x:
+        right_tail = True
+        maxim_x = int(random.random()*7)
+
+
+dx2 = 0
+maxim_x2 = int(random.random()*7)
+right_head = True
+def head_shake():
+    global dx2, maxim_x2, right_head
+    if right_head: 
+        for i in head_array:
+            moveObjectBy(i, 1, 0)
+        dx2 += 1    
+    else:
+        for i in head_array:
+            moveObjectBy(i, -1, 0)
+        dx2 -= 1
+    if right_head and dx2 >= maxim_x2:
+        right_head = False
+        maxim_x2 = int(random.random()*7)
+    elif (not right_head) and dx2 <= -maxim_x2:
+        right_head = True
+        maxim_x2 = int(random.random()*7)
         
+
 
 windowSize(600, 800)
 canvasSize(600, 800)
@@ -451,6 +511,10 @@ unicorn('white', (184, 134, 11), 'white', (184, 134, 11), mane, tail, axis)
 
 onTimer(dayNight, 1000)
 
-onTimer(jump, 5)
+onTimer(jump, 1)
+
+onTimer(wind, 30)
+
+onTimer(head_shake, 36)
 
 run()
