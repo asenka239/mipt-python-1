@@ -23,16 +23,10 @@ def task_2_1():
         move_left()
         move_up()
 
-
     move_down()
     move_right()
     func()
 
 
-
-
-
 if __name__ == '__main__':
     run_tasks()
-
-

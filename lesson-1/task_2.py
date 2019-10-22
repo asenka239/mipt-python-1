@@ -9,11 +9,10 @@ def task_1_2():
     move_down()
     move_right()
     move_right()
-    fill_cell()	
+    fill_cell()
     move_right()
     move_right()
     move_down()
-
 
 
 if __name__ == '__main__':

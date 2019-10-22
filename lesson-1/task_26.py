@@ -42,7 +42,7 @@ def task_2_4():
         move_right()
         func()
     for k in range(36):
-        move_left()       
+        move_left()
 
 
 if __name__ == '__main__':

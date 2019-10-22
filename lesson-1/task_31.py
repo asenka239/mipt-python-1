@@ -16,18 +16,9 @@ def task_8_30():
             move_left()
         if wall_is_on_the_left() and wall_is_beneath():
             flag = 1
-        else :
+        else:
             while not wall_is_beneath():
                 move_down()
-
-
-
-    
-
-
-
-
-
 
 
 if __name__ == '__main__':

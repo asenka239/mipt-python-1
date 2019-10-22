@@ -9,11 +9,8 @@ def task_7_6():
     while not wall_is_on_the_right() and k < 5:
         move_right()
         if cell_is_filled():
-            k+=1
-
+            k += 1
 
 
 if __name__ == '__main__':
     run_tasks()
-
-

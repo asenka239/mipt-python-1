@@ -11,21 +11,18 @@ def task_8_18():
     while wall_is_beneath():
         if wall_is_above():
             fill_cell()
-        else :
+        else:
             while not wall_is_above():
                 move_up()
                 l += 1
                 if not cell_is_filled():
                     fill_cell()
                     k += 1
-            while not wall_is_beneath() :
+            while not wall_is_beneath():
                 move_down()
-        move_right() 
-    t = l-k     
-    mov('ax', t)          
-
-            
-
+        move_right()
+    t = l - k
+    mov('ax', t)
 
 
 if __name__ == '__main__':

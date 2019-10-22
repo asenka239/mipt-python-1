@@ -14,7 +14,7 @@ def task_8_10():
             move_down()
             fill_cell()
             move_up()
-        move_right()    
+        move_right()
     if not wall_is_above():
         move_up()
         fill_cell()
