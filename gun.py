@@ -26,21 +26,21 @@ class Ball():
         self.vy = 0
         self.color = choice(['blue', 'green', 'red', 'brown'])
         self.id = canv.create_oval(
-                self.x - self.r,
-                self.y - self.r,
-                self.x + self.r,
-                self.y + self.r,
-                fill=self.color
+            self.x - self.r,
+            self.y - self.r,
+            self.x + self.r,
+            self.y + self.r,
+            fill=self.color
         )
         self.live = 120
 
     def set_coords(self):
         canv.coords(
-                self.id,
-                self.x - self.r,
-                self.y - self.r,
-                self.x + self.r,
-                self.y + self.r
+            self.id,
+            self.x - self.r,
+            self.y - self.r,
+            self.x + self.r,
+            self.y + self.r
         )
 
     def move(self):
@@ -58,9 +58,9 @@ class Ball():
                 self.vx *= 0.99
                 self.set_coords()
             else:
-                if self.vx ** 2+self.vy**2 > 10:
-                    self.vy = -self.vy/2
-                    self.vx = self.vx/2
+                if self.vx ** 2 + self.vy**2 > 10:
+                    self.vy = -self.vy / 2
+                    self.vx = self.vx / 2
                     self.y = 499
                 if self.live < 0:
                     balls.pop(balls.index(self))
@@ -68,7 +68,7 @@ class Ball():
                 else:
                     self.live -= 1
             if self.x > 780:
-                self.vx = -self.vx/2
+                self.vx = -self.vx / 2
                 self.x = 779
                 return False
         else:
@@ -85,11 +85,12 @@ class Ball():
             Возвращает True в случае столкновения мяча и цели.
             В противном случае возвращает False.
         """
-        if abs(obj.x-self.x) <= (self.r+obj.r)\
-                and abs(obj.y-self.y) <= (self.r+obj.r):
+        if abs(obj.x - self.x) <= (self.r + obj.r)\
+                and abs(obj.y - self.y) <= (self.r + obj.r):
             return True
         else:
             return False
+
 
 """
 Класс gun описывает пушку.
@@ -111,22 +112,22 @@ class Gun():
         bullet += 1
         new_ball = Ball()
         new_ball.r += 5
-        self.an = math.atan((event.y-new_ball.y)/(event.x-new_ball.x))
-        new_ball.vx = self.f2_power*math.cos(self.an)
-        new_ball.vy = -self.f2_power*math.sin(self.an)
+        self.an = math.atan((event.y - new_ball.y) / (event.x - new_ball.x))
+        new_ball.vx = self.f2_power * math.cos(self.an)
+        new_ball.vy = -self.f2_power * math.sin(self.an)
         balls += [new_ball]
         self.f2_on = 0
         self.f2_power = 10
 
     def targetting(self, event=0):
         if event:
-            self.an = math.atan((event.y-450)/(event.x-20))
+            self.an = math.atan((event.y - 450) / (event.x - 20))
         if self.f2_on:
             canv.itemconfig(self.id, fill='orange')
         else:
             canv.itemconfig(self.id, fill='black')
-        canv.coords(self.id, 20, 450, 20+max(self.f2_power, 20) *
-                    math.cos(self.an), 450+max(self.f2_power, 20) *
+        canv.coords(self.id, 20, 450, 20 + max(self.f2_power, 20) *
+                    math.cos(self.an), 450 + max(self.f2_power, 20) *
                     math.sin(self.an))
 
     def power_up(self):
@@ -136,6 +137,7 @@ class Gun():
             canv.itemconfig(self.id, fill='orange')
         else:
             canv.itemconfig(self.id, fill='black')
+
 
 """
 Класс target описывает цель.
@@ -158,7 +160,7 @@ class target():
         self.vx = rnd(3, 10)
         self.vy = rnd(2, 8)
         color = self.color = 'red'
-        canv.coords(self.id, x-r, y-r, x+r, y+r)
+        canv.coords(self.id, x - r, y - r, x + r, y + r)
         canv.itemconfig(self.id, fill=color)
 
     def hit(self, points=1):
@@ -183,11 +185,11 @@ class target():
         if self.y + self.r > 600 or self.y - self.r < 0:
             self.vy = -self.vy
         self.id = canv.create_oval(
-                self.x - self.r,
-                self.y - self.r,
-                self.x + self.r,
-                self.y + self.r,
-                fill=self.color
+            self.x - self.r,
+            self.y - self.r,
+            self.x + self.r,
+            self.y + self.r,
+            fill=self.color
         )
 
 
@@ -251,8 +253,8 @@ def update_targets():
             canv.delete(t.id)
     root.after(30, update_targets)
 
+
 update_targets()
 new_game()
 
 root.mainloop()
-
